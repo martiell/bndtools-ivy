@@ -1,0 +1,31 @@
+<ivysettings>
+
+  <properties file="${ivy.settings.dir}/ivysettings-file.properties" />
+  <property name="bndtools" value="https://raw.github.com/bndtools/bndtools/2.1.0.REL"/>
+  <property name="build"    value="${bndtools}/bndtools.repository.base/templates/cnfs/default/buildrepo"/>
+  <property name="bnd"      value="https://bndtools.ci.cloudbees.com/job/bnd.master/75/artifact" />
+  <property name="bindex"   value="https://bndtools.ci.cloudbees.com/job/bindex.master/23/artifact" />
+  <property name="pattern"  value="[artifact]/[artifact]-[revision].[ext]" />
+
+  <settings defaultResolver="public" />
+
+  <resolvers>
+    <ibiblio name="public" m2compatible="true"/>
+    <url name="build">
+      <artifact pattern="${build}/[artifact]/[artifact]-[revision].[ext]" />
+    </url>
+    <url name="bnd">
+      <artifact pattern="${bnd}/dist/bundles/${pattern}" />
+    </url>
+    <url name="bindex">
+      <artifact pattern="${bindex}/cnf/releaserepo/${pattern}" />
+    </url>
+  </resolvers>
+
+  <modules>
+    <module organisation="buildrepo" name=".*" resolver="build" />
+    <module organisation="bnd"       name=".*" resolver="bnd" />
+    <module organisation="bindex"    name=".*" resolver="bindex" />
+  </modules>
+
+</ivysettings>

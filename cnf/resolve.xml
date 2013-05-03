@@ -1,0 +1,59 @@
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="resolve" default="resolve">
+
+  <property name="central.url" value="http://repo1.maven.org/maven2" />
+  <property name="indexer" value="org.osgi.impl.bundle.repoindex.ant" />
+  <property name="ivy.rev"  value="2.3.0" />
+  <property name="ivy.file" value="ivy-${ivy.rev}.jar" />
+  <property name="ivy.loc" value="org/apache/ivy/ivy/${ivy.rev}/${ivy.file}" /> 
+  <property name="ivy.dir" value="${basedir}/ivy" />
+  <property name="ivy.path" value="${ivy.dir}/${ivy.file}" />
+
+  <target name="download-ivy">
+    <mkdir dir="${ivy.dir}" />
+    <get src="${central.url}/${ivy.loc}"
+    	dest="${ivy.path}"
+    	skipexisting="true" />
+  </target>
+
+  <target name="install-ivy" depends="download-ivy">
+    <taskdef resource="org/apache/ivy/ant/antlib.xml"
+        uri="antlib:org.apache.ivy.ant"
+        classpath="${ivy.path}"/>
+  </target>
+
+  <target name="resolve" depends="resolve-artifacts,index"/>
+
+  <target name="resolve-artifacts" depends="install-ivy">
+    <ivy:settings />
+    <ivy:resolve />
+    <property name="bundle.path" value="[artifact]/[artifact]-[revision](-[classifier]).[ext]"/>
+  	<property name="latest.path" value="[artifact]/[artifact]-latest.[ext]"/>
+    <ivy:retrieve pattern="localrepo/${bundle.path}" conf="local" />
+    <ivy:retrieve pattern="buildrepo/${bundle.path}" conf="build" />
+    <ivy:retrieve pattern="buildrepo/${bundle.path}" conf="bndrepo" />
+    <ivy:retrieve pattern="plugins/${bundle.path}" conf="bndplugins" />
+    <ivy:retrieve pattern="plugins/${latest.path}" conf="bindex" />
+  </target>
+
+  <target name="install-bindex" depends="resolve-artifacts">
+    <taskdef name="index" classname="${indexer}.RepoIndexTask"
+	         classpath="plugins/${indexer}/${indexer}-latest.jar"/>
+  </target>
+
+  <target name="index" depends="install-bindex">
+    <index out="${basedir}/localrepo/index.xml"
+    	rootURL="${basedir}/localrepo"
+    	pretty="true">
+      <fileset dir="${basedir}/localrepo" includes="**/*.jar" />
+    </index>
+  </target>
+
+  <target name="clean-ivy">
+    <delete dir="${ivy.dir}" />
+  </target>
+
+  <target name="clean-cache" depends="install-ivy">
+    <ivy:cleancache />
+  </target>
+
+</project>

@@ -1,0 +1,7 @@
+Service-Component: *
+-buildpath: osgi.core,\
+	osgi.cmpn,\
+	biz.aQute.bnd.annotation,\
+	junit.osgi,\
+	org.apache.commons.lang
+Private-Package: org.example

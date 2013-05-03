@@ -1,0 +1,9 @@
+.DS_Store
+.cache
+*.swp
+.metadata
+cnf/ivy/
+cnf/org.osgi.impl.bundle.repoindex.ant-*.jar
+cnf/plugins/
+cnf/localrepo/
+cnf/buildrepo/

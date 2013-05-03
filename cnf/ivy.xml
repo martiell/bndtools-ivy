@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+  <info organisation="myorg" module="mymodule" />
+
+  <configurations defaultconf="local"
+      defaultconfmapping="*->default">
+    <conf name="local" />
+    <conf name="build" />
+    <conf name="bndrepo" />
+    <conf name="bndplugins" />
+    <conf name="bindex" />
+  </configurations>
+
+  <dependencies>
+    <dependency org="biz.aQute" name="annotation" rev="1.50.0" />
+    <dependency org="commons-lang" name="commons-lang" rev="2.6" />
+
+    <dependency org="buildrepo" name="junit.osgi" rev="3.8.2" conf="build" />
+    <dependency org="buildrepo" name="osgi.core" rev="4.0.1" conf="build" />
+    <dependency org="buildrepo" name="osgi.core" rev="4.1.0" conf="build" />
+    <dependency org="buildrepo" name="osgi.core" rev="4.2.0" conf="build" />
+    <dependency org="buildrepo" name="osgi.core" rev="4.3.0" conf="build" />
+    <dependency org="buildrepo" name="osgi.core" rev="5.0.0" conf="build" />
+    <dependency org="buildrepo" name="org.osgi.ee.foundation" rev="1.0.0" conf="build" />
+    <dependency org="buildrepo" name="org.osgi.ee.foundation" rev="1.0.1" conf="build" />
+    <dependency org="buildrepo" name="ee.foundation"       rev="1.1.0" conf="build" />
+    <dependency org="buildrepo" name="org.osgi.ee.minimum" rev="1.1.0" conf="build" />
+    <dependency org="buildrepo" name="org.osgi.ee.minimum" rev="1.1.1" conf="build" />
+    <dependency org="buildrepo" name="org.osgi.ee.minimum" rev="1.1.3" conf="build" />
+    <dependency org="buildrepo" name="ee.minimum"          rev="1.2.0" conf="build" />
+    <dependency org="bnd"       name="biz.aQute.junit"     rev="1.2.0" conf="bndrepo" />
+    <dependency org="bnd"       name="biz.aQute.launcher"  rev="1.0.6" conf="bndrepo" />
+    <dependency org="bnd"       name="biz.aQute.bnd"       rev="2.1.0" conf="bndplugins" />
+    <dependency org="bnd"       name="biz.aQute.repository" rev="2.1.0" conf="bndplugins" />
+    <dependency org="bindex"    name="org.osgi.impl.bundle.repoindex.ant" rev="0.0.1" conf="bindex" />
+    <conflict org="buildrepo" manager="all"/>
+  </dependencies>
+
+</ivy-module>
